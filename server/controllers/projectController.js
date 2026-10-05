@@ -1,0 +1,11 @@
+import Project from '../models/Project.js';
+const slugify=s=>s.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+const pick=b=>{const{title,description,technologies,image,githubUrl,liveUrl,featured,year}=b;return{title,description,technologies,image,githubUrl,liveUrl,featured,year};};
+const nf=(res)=>res.status(404).json({message:'Project not found'});
+export const list=async(req,res)=>res.json(await Project.find().sort('-year -createdAt'));
+export const getOne=async(req,res)=>{const p=await Project.findById(req.params.id);return p?res.json(p):nf(res);};
+export const create=async(req,res)=>{if(!req.body.title)return res.status(400).json({message:'Title required'});
+ res.status(201).json(await Project.create({...pick(req.body),slug:slugify(req.body.title)}));};
+export const update=async(req,res)=>{const d=pick(req.body);if(d.title)d.slug=slugify(d.title);
+ const p=await Project.findByIdAndUpdate(req.params.id,d,{new:true,runValidators:true});return p?res.json(p):nf(res);};
+export const remove=async(req,res)=>{const p=await Project.findByIdAndDelete(req.params.id);return p?res.json({message:'Deleted'}):nf(res);};

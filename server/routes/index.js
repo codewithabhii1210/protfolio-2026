@@ -1,0 +1,13 @@
+import {Router} from 'express';import {body} from 'express-validator';import multer from 'multer';import rateLimit from 'express-rate-limit';
+import {asyncH} from '../middleware/error.js';import {protect} from '../middleware/auth.js';
+import {createContact,listContacts} from '../controllers/contactController.js';import {list,getOne,create,update,remove} from '../controllers/projectController.js';
+import {login} from '../controllers/userController.js';import {uploadBuffer} from '../services/cloudinary.js';
+const r=Router();const lim=rateLimit({windowMs:15*60*1000,limit:20,standardHeaders:true});
+const up=multer({storage:multer.memoryStorage(),limits:{fileSize:5*1024*1024},fileFilter:(q,f,cb)=>cb(f.mimetype.startsWith('image/')?null:new Error('Images only'),true)});
+r.post('/auth/login',lim,[body('email').isEmail().withMessage('Valid email required'),body('password').notEmpty().withMessage('Password required')],asyncH(login));
+r.get('/projects',asyncH(list));r.get('/projects/:id',asyncH(getOne));
+r.post('/projects',protect,asyncH(create));r.put('/projects/:id',protect,asyncH(update));r.delete('/projects/:id',protect,asyncH(remove));
+r.post('/contact',lim,[body('name').trim().notEmpty().withMessage('Name required'),body('email').isEmail().withMessage('Valid email required'),body('message').trim().isLength({min:5}).withMessage('Message too short')],asyncH(createContact));
+r.get('/contact',protect,asyncH(listContacts));
+r.post('/upload',protect,up.single('image'),asyncH(async(req,res)=>{if(!req.file)return res.status(400).json({message:'No file'});res.json({url:(await uploadBuffer(req.file.buffer)).secure_url});}));
+export default r;
