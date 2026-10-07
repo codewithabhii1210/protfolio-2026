@@ -6,7 +6,7 @@ Set these environment variables in Vercel project settings:
 
 - `MONGO_URI`: a MongoDB Atlas connection string. Create a database user for the portfolio database and allow the Vercel deployment to connect in Atlas Network Access.
 - `JWT_SECRET`: a long, randomly generated secret for admin authentication.
-- `ADMIN_EMAIL` and `ADMIN_PASSWORD`: initial admin credentials used by `npm run seed --workspace server`.
+- `ADMIN_EMAIL` and `ADMIN_PASSWORD`: initial admin credentials used by `npm run seed --prefix server`.
 - `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET`: only needed for image uploads in the admin area.
 
 Run the seed command against the chosen MongoDB database before using admin login. Do not put database credentials or `JWT_SECRET` in `VITE_*` variables; those are exposed to the browser.
