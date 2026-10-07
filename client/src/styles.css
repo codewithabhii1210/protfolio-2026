@@ -60,10 +60,27 @@ h1{font-size:clamp(2.2rem,7vw,5.5rem);line-height:1;letter-spacing:-.03em}
 .sheen{position:absolute;inset:0;background:linear-gradient(115deg,transparent 40%,#ffffff33 50%,transparent 60%);transform:translateX(-120%);transition:transform .9s}.photo:hover .sheen{transform:translateX(120%)}
 @keyframes spin{to{transform:rotate(360deg)}}@keyframes pulse{50%{opacity:.5;transform:scale(1.06)}}
 /* nav */
-.nav{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:1rem 4vw;background:linear-gradient(#0a0a0bcc,transparent)}
-.nav a{color:var(--fg);text-decoration:none;font-size:.9rem}.nav nav{display:flex;gap:1.4rem}.nav nav a{color:var(--mute);transition:color .3s}.nav nav a:hover{color:var(--ac)}.logo{font-weight:700;letter-spacing:-.03em}
+.nav{position:fixed;top:0;left:0;right:0;z-index:90;display:flex;justify-content:space-between;align-items:center;padding:1rem 4vw;background:linear-gradient(#0a0a0bcc,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.nav a{color:var(--fg);text-decoration:none;font-size:.9rem}
+.nav nav{display:flex;gap:1.4rem;align-items:center}
+.nav nav a{color:var(--mute);transition:color .3s}
+.nav nav a:hover{color:var(--ac)}
+.logo{font-weight:700;letter-spacing:-.03em}
+
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;padding:.5rem;flex-direction:column;gap:5px;z-index:95}
+.nav-toggle span{display:block;width:22px;height:2px;background:var(--fg);transition:transform .3s,opacity .3s}
+.nav-toggle.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-toggle.active span:nth-child(2){opacity:0}
+.nav-toggle.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
 @media(max-width:860px){.hero{grid-template-columns:1fr;padding-top:6rem}.hero-visual{order:-1;width:min(62vw,280px)}}
-@media(max-width:700px){.nav nav a:not(:last-child){display:none}}
+@media(max-width:700px){
+  .nav{padding:.9rem 1.25rem}
+  .nav-toggle{display:flex}
+  .nav nav{position:fixed;top:0;left:0;right:0;background:#0d0d10fa;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--line);flex-direction:column;padding:5rem 2rem 2.5rem;gap:1.5rem;align-items:center;transform:translateY(-120%);transition:transform .35s cubic-bezier(.22,1,.36,1);pointer-events:none}
+  .nav nav.active{transform:translateY(0);pointer-events:auto}
+  .nav nav a{font-size:1.1rem;color:var(--fg);padding:.4rem 1rem}
+}
 /* loader (centre progress ring) */
 .intro{position:fixed;inset:0;z-index:99;display:grid;place-items:center}
 .curtain{position:absolute;left:0;width:100%;height:50.2%;background:var(--bg)}.curtain.top{top:0}.curtain.bot{bottom:0}
@@ -80,3 +97,29 @@ h1{font-size:clamp(2.2rem,7vw,5.5rem);line-height:1;letter-spacing:-.03em}
 .marquee{overflow:hidden;border-block:1px solid var(--line);padding:1rem 0}.track{display:flex;width:max-content;animation:slide 30s linear infinite}.marquee:hover .track{animation-play-state:paused}
 .track span{font-size:clamp(1.4rem,4vw,2.4rem);font-weight:700;letter-spacing:-.02em;color:var(--mute);padding:0 1.2rem;white-space:nowrap;transition:color .3s}.track span:hover{color:var(--fg)}.track b{color:var(--ac);margin-left:2.4rem;font-size:.9em}
 @keyframes slide{to{transform:translateX(-50%)}}@media(prefers-reduced-motion:reduce){.track{animation:none}}
+
+/* responsiveness & touch polish */
+@media(max-width:768px){
+  .stats{gap:1.5rem}
+  .stat b{font-size:clamp(1.8rem,5vw,2.5rem)}
+  .btn{padding:.8rem 1.2rem;font-size:.9rem}
+  .arch{grid-template-columns:1fr;gap:2rem}
+  .arch-node{width:100%;max-width:320px}
+  .grid{grid-template-columns:1fr}
+  .heat{padding-bottom:.8rem;-webkit-overflow-scrolling:touch}
+  .pcard{height:min(65vw,360px)}
+}
+
+@media(max-width:480px){
+  .hero,.sec{padding:4.5rem 1rem}
+  h1{font-size:clamp(1.85rem,7.5vw,2.8rem)}
+  .big{font-size:clamp(2rem,8.5vw,3.2rem)}
+  .btn{width:100%;text-align:center;justify-content:center}
+  .row{flex-direction:column;width:100%}
+  .row .btn{width:100%}
+  .tl{padding-left:1.5rem;gap:1.8rem}
+  .chips{gap:.4rem}
+  .chip{font-size:.82rem;padding:.25rem .65rem .25rem .25rem}
+  .card{padding:1.2rem}
+  .intro-name{letter-spacing:.2em;font-size:.78rem}
+}
