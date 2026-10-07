@@ -14,5 +14,5 @@ export default function Hero({ready}){
   <p className="h-fade role" aria-live="polite"><span key={i}>{ROLES[i]}</span></p>
   <p className="h-fade lead">Hi, I'm Abhi. Computer Science undergraduate focused on building modern web applications, solving problems and continuously improving my development skills.</p>
   <div className="h-fade row"><a data-mag className="btn primary" href="#work">View My Work</a><a data-mag className="btn" href="#contact">Let's Connect</a></div></div>
-  <div className="hero-visual"><Suspense fallback={null}><Hero3D/></Suspense><Profile/></div></section>);
+  <div className="hero-visual">{ready&&<Suspense fallback={null}><Hero3D/></Suspense>}<Profile/></div></section>);
 }
