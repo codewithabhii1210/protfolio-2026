@@ -15,4 +15,4 @@ The contact form posts to `POST /api/contact`. The API validates each submission
 
 ## Local development
 
-Run `npm ci --prefix client` and `npm ci --prefix server` from the repository root. Copy `server/.env.example` to `server/.env` and set `MONGO_URI` and a private `JWT_SECRET`. Then run the API and client in separate terminals with `npm run dev --prefix server` and `npm run dev --prefix client`. The sample MongoDB URI expects a local MongoDB instance.
+Run `npm install --prefix client` and `npm install --prefix server` from the repository root. Copy `server/.env.example` to `server/.env` and set `MONGO_URI` and a private `JWT_SECRET`. Then run the API and client in separate terminals with `npm run dev --prefix server` and `npm run dev --prefix client`. The sample MongoDB URI expects a local MongoDB instance.
