@@ -16,7 +16,7 @@ function Particles(){
 }
 export default function Hero3D(){
  const [on,setOn]=useState(true),box=useRef();
- useEffect(()=>{const o=new IntersectionObserver(([e])=>setOn(e.isIntersecting));o.observe(box.current);return()=>o.disconnect();},[]); // pause when offscreen
+ useEffect(()=>{if(reduce)return;const o=new IntersectionObserver(([e])=>setOn(e.isIntersecting));o.observe(box.current);return()=>o.disconnect();},[]); // pause when offscreen
  if(reduce)return null;
  return <div ref={box} className="hero3d" aria-hidden="true"><Canvas frameloop={on?'always':'never'} camera={{position:[0,0,5],fov:50}} dpr={[1,mobile?1:1.5]}
   eventSource={document.body} eventPrefix="client" gl={{antialias:!mobile,powerPreference:'high-performance'}}><Orbit/><Particles/></Canvas></div>;

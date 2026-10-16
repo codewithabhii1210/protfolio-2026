@@ -20,10 +20,12 @@ export function Education(){
  return(<section id="education" ref={r} className="sec"><h2 className="big" data-reveal>Education</h2>
  <div className="tl"><span className="tl-line"/>{EDU.map(([y,s,d,n])=><div key={s} className="tl-item" data-reveal><small>{y}</small><h3>{s}</h3><p>{d}</p>{n&&<p className="acc">{n}</p>}</div>)}</div></section>);}
 export function Certification(){
- const [open,setOpen]=useState(false);
+ const [open,setOpen]=useState(false),has=!!CONFIG.certImage;
+ const inner=<><small>Issued: November 2025</small><h3>Introduction to Data Science</h3><p>Cisco Networking Academy</p></>;
  return(<section id="cert" className="sec"><h2 className="big" data-reveal>Certification</h2>
- <button className="card certcard" data-tilt data-reveal data-cursor="view" onClick={()=>CONFIG.certImage&&setOpen(true)}>
- <small>Issued: November 2025</small><h3>Introduction to Data Science</h3><p>Cisco Networking Academy</p></button>
+ {has
+  ?<button className="card certcard" data-tilt data-reveal data-cursor="view" onClick={()=>setOpen(true)}>{inner}</button>
+  :<div className="card certcard" data-tilt data-reveal>{inner}</div>}
  {open&&<div className="modal" role="dialog" aria-modal="true" onClick={()=>setOpen(false)}><img src={CONFIG.certImage} alt="Certificate: Introduction to Data Science" loading="lazy"/></div>}</section>);}
 export function MoreWork(){return(<section id="more" className="sec"><p className="tag" data-reveal>More Work · Vibe Coding</p><h2 className="big" data-reveal>Web Experiments.</h2>
  <div className="grid">{CONFIG.clones.map(([n,u])=><a key={n} className="card" data-tilt data-reveal href={u||undefined} target="_blank" rel="noreferrer"><h3>{n}</h3><p>{u?'View project →':'Link coming soon'}</p></a>)}</div></section>);}

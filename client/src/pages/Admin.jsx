@@ -2,14 +2,15 @@ import {useEffect,useState} from 'react';import * as api from '../services/api';
 const EMPTY={title:'',description:'',technologies:'',githubUrl:'',liveUrl:'',year:new Date().getFullYear(),featured:false,image:''};
 export default function Admin(){
  const [authed,setAuthed]=useState(api.hasToken()),[err,setErr]=useState(''),[projects,setP]=useState([]),[msgs,setM]=useState([]),[f,setF]=useState(EMPTY);
+ const guard=x=>{if(/token|Unauthorized/i.test(x.message)){api.logout();setAuthed(false);}else setErr(x.message);};
  const load=async()=>{try{setP(await api.getProjects());setM(await api.getMessages());}catch(e){if(/token|Unauthorized/i.test(e.message)){api.logout();setAuthed(false);}else setErr(e.message);}};
  useEffect(()=>{if(authed)load();},[authed]);
- const doLogin=async e=>{e.preventDefault();const d=new FormData(e.target);try{await api.login(d.get('email'),d.get('password'));setErr('');setAuthed(true);}catch(x){setErr(x.message);}};
+ const doLogin=async e=>{e.preventDefault();const d=new FormData(e.target);try{await api.login(d.get('email'),d.get('password'));setErr('');setAuthed(true);}catch(x){guard(x);}};
  const up=k=>e=>setF({...f,[k]:e.target.type==='checkbox'?e.target.checked:e.target.value});
- const save=async e=>{e.preventDefault();try{await api.saveProject({...f,technologies:String(f.technologies).split(',').map(s=>s.trim()).filter(Boolean)});setF(EMPTY);setErr('');load();}catch(x){setErr(x.message);}};
- const upload=async e=>{const file=e.target.files[0];if(!file)return;try{const r=await api.uploadImage(file);setF(v=>({...v,image:r.url}));}catch(x){setErr(x.message);}};
+ const save=async e=>{e.preventDefault();try{await api.saveProject({...f,technologies:String(f.technologies).split(',').map(s=>s.trim()).filter(Boolean)});setF(EMPTY);setErr('');load();}catch(x){guard(x);}};
+ const upload=async e=>{const file=e.target.files[0];if(!file)return;try{const r=await api.uploadImage(file);setF(v=>({...v,image:r.url}));}catch(x){guard(x);}};
  const edit=p=>setF({...p,technologies:(p.technologies||[]).join(', ')});
- const del=async id=>{if(confirm('Delete project?')){try{await api.deleteProject(id);load();}catch(x){setErr(x.message);}}};
+ const del=async id=>{if(confirm('Delete project?')){try{await api.deleteProject(id);load();}catch(x){guard(x);}}};
  if(!authed)return(<div className="admin"><form className="form" onSubmit={doLogin}><h2>Admin login</h2><input name="email" type="email" placeholder="Email" required/><input name="password" type="password" placeholder="Password" required/><button className="btn primary">Login</button><p>{err}</p></form></div>);
  return(<div className="admin"><header className="row"><h2>Admin</h2><button className="btn" onClick={()=>{api.logout();setAuthed(false);}}>Logout</button><a className="btn" href="/">Site</a></header><p role="alert">{err}</p>
  <form className="form" onSubmit={save}><h3>{f._id?'Edit':'Add'} project</h3>
