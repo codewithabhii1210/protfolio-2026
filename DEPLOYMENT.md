@@ -1,18 +1,60 @@
 # Vercel deployment
 
-Import this repository into Vercel and keep the project root set to the repository root. The root `vercel.json` installs the client and server from their own lockfiles, builds the React client into `client/dist`, serves it as the static site, and sends `/api/*` requests to the Express serverless function.
+Production: https://protfolio-2026-ikhg.vercel.app (Git-connected to `codewithabhii1210/protfolio-2026`, branch `main`).
 
-Set these environment variables in Vercel project settings:
+## Project settings (must match)
 
-- `MONGO_URI`: a MongoDB Atlas connection string. Create a database user for the portfolio database and allow the Vercel deployment to connect in Atlas Network Access.
-- `JWT_SECRET`: a long, randomly generated secret for admin authentication.
-- `ADMIN_EMAIL` and `ADMIN_PASSWORD`: initial admin credentials used by `npm run seed --prefix server`.
-- `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, and `CLOUDINARY_API_SECRET`: only needed for image uploads in the admin area.
+- **Root Directory: empty (repository root).** Never set it to `client` — that makes the
+  install command look for `client/client/package.json` and the build dies with `ENOENT`.
+- Install command, build command and output directory come from the root `vercel.json`
+  (`npm install --prefix client && npm install --prefix server`,
+  `npm --prefix client run build`, `client/dist`).
+- `vercel.json` uses legacy `routes`, **not** `rewrites`:
 
-Run the seed command against the chosen MongoDB database before using admin login. Do not put database credentials or `JWT_SECRET` in `VITE_*` variables; those are exposed to the browser.
+  ```json
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/[...path].js" },
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/index.html" }
+  ]
+  ```
 
-The contact form posts to `POST /api/contact`. The API validates each submission and stores it in MongoDB's `contacts` collection. Authenticated admins can review submissions through the existing admin area. Vercel and the client use the same `/api` origin, so no client API URL variable is needed.
+  The explicit `dest` is required: with `rewrites` only single-segment paths
+  (`/api/contact`) reached the Express function, while `/api/auth/login` and
+  `/api/projects/:id` returned an edge `404: NOT_FOUND`. Do not switch back.
+
+## Environment variables (Settings → Environment Variables)
+
+Server side (stored as secrets):
+
+| Name | Purpose |
+| --- | --- |
+| `MONGO_URI` | MongoDB Atlas connection string, including the database name (e.g. `...mongodb.net/portfolio`) |
+| `JWT_SECRET` | Long random string used to sign admin tokens |
+| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Credentials created by the seed script |
+| `CLOUDINARY_CLOUD_NAME` / `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET` | Optional; only needed for image upload in the admin area |
+
+Client side (build time, every name must start with `VITE_`):
+
+| Name | Purpose |
+| --- | --- |
+| `VITE_GITHUB_URL`, `VITE_LINKEDIN_URL`, `VITE_EMAIL`, `VITE_PHOTO` | Contact/social links and photo |
+| `VITE_SEHATSAARTHI_GITHUB`, `VITE_SEHATSAARTHI_LIVE` | Featured project buttons |
+| `VITE_APPLE_URL`, `VITE_BMW_URL`, `VITE_NETFLIX_URL`, `VITE_CLOTHING_URL` | "More Work" clone cards |
+| `VITE_CERT_IMAGE` | Certificate image; the card stays non-interactive while empty |
+
+An empty link value hides that button, so a missing variable never produces a dead `#` link.
+`VITE_*` values are baked in at build time — changing one requires a redeploy.
+
+Run the seed once per database: `npm run seed --prefix server`. Never prefix database
+secrets with `VITE_`; those are shipped to the browser.
 
 ## Local development
 
-Run `npm install --prefix client` and `npm install --prefix server` from the repository root. Copy `server/.env.example` to `server/.env` and set `MONGO_URI` and a private `JWT_SECRET`. Then run the API and client in separate terminals with `npm run dev --prefix server` and `npm run dev --prefix client`. The sample MongoDB URI expects a local MongoDB instance.
+```bash
+npm install --prefix client && npm install --prefix server
+cp server/.env.example server/.env   # set MONGO_URI and JWT_SECRET
+npm run seed --prefix server          # optional: admin user + SehatSaarthi project
+npm run dev --prefix server           # API on :5000
+npm run dev --prefix client           # client on :5173, proxies /api to :5000
+```
