@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Intro from './components/Intro';
 import Cursor from './components/Cursor';
 import Nav from './components/Nav';
@@ -9,7 +9,6 @@ import Contact from './sections/Contact';
 import {
   About,
   Stack,
-  MoreWork,
   Achievements,
   Beyond,
   Education,
@@ -18,8 +17,6 @@ import {
 import Journey from './sections/Journey';
 import { initSmoothScroll } from './animations/smoothScroll';
 import { initInteractions } from './hooks/interactions';
-
-const Architecture = lazy(() => import('./sections/Architecture'));
 
 export default function Site() {
   const [ready, setReady] = useState(false);
@@ -45,10 +42,6 @@ export default function Site() {
         <About />
         <Stack />
         <Project />
-        <Suspense fallback={<div style={{ minHeight: 700 }} />}>
-          <Architecture />
-        </Suspense>
-        <MoreWork />
         <Journey />
         <Achievements />
         <Beyond />

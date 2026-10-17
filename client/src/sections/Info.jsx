@@ -27,8 +27,6 @@ export function Certification(){
   ?<button className="card certcard" data-tilt data-reveal data-cursor="view" onClick={()=>setOpen(true)}>{inner}</button>
   :<div className="card certcard" data-tilt data-reveal>{inner}</div>}
  {open&&<div className="modal" role="dialog" aria-modal="true" onClick={()=>setOpen(false)}><img src={CONFIG.certImage} alt="Certificate: Introduction to Data Science" loading="lazy"/></div>}</section>);}
-export function MoreWork(){return(<section id="more" className="sec"><p className="tag" data-reveal>More Work · Vibe Coding</p><h2 className="big" data-reveal>Web Experiments.</h2>
- <div className="grid">{CONFIG.clones.map(([n,u])=><a key={n} className="card" data-tilt data-reveal href={u||undefined} target="_blank" rel="noreferrer"><h3>{n}</h3><p>{u?'View project →':'Link coming soon'}</p></a>)}</div></section>);}
 const BEYOND=[['Hackathons','Participated in various hackathons.'],['Collaboration','Worked with Reffto in college projects and activities.'],['Creative Design','Designed posters and videos for school and college events.']];
 const STR=['Creative thinking','Problem-solving','Teamwork','Leadership','Communication','Sports','Music','Writing'];
 const HOB=['Video editing','Graphic designing','Exploring new technologies','Reading about tech innovations'];

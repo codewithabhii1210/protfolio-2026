@@ -3,7 +3,7 @@ import {asyncH} from '../middleware/error.js';import {protect} from '../middlewa
 import {createContact,listContacts} from '../controllers/contactController.js';import {list,getOne,create,update,remove} from '../controllers/projectController.js';
 import {login} from '../controllers/userController.js';import {uploadBuffer} from '../services/cloudinary.js';
 const r=Router();const lim=rateLimit({windowMs:15*60*1000,limit:20,standardHeaders:true});
-const up=multer({storage:multer.memoryStorage(),limits:{fileSize:5*1024*1024},fileFilter:(q,f,cb)=>cb(f.mimetype.startsWith('image/')?null:new Error('Images only'),true)});
+const up=multer({storage:multer.memoryStorage(),limits:{fileSize:5*1024*1024},fileFilter:(q,f,cb)=>cb(f.mimetype.startsWith('image/')?null:Object.assign(new Error('Images only'),{status:400}),true)});
 r.post('/auth/login',lim,[body('email').isEmail().withMessage('Valid email required'),body('password').notEmpty().withMessage('Password required')],asyncH(login));
 r.get('/projects',asyncH(list));r.get('/projects/:id',asyncH(getOne));
 r.post('/projects',protect,asyncH(create));r.put('/projects/:id',protect,asyncH(update));r.delete('/projects/:id',protect,asyncH(remove));

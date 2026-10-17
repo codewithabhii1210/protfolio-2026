@@ -1,12 +1,36 @@
-import {CONFIG} from '../config';
-const stack=['React.js','Vite','Tailwind CSS','Node.js','Express.js','REST APIs','Gemini API'];
-export default function Project(){
- return(<section id="work" className="sec"><p className="tag" data-reveal>Featured Project · 2026</p><h2 className="big" data-reveal>SEHATSAARTHI</h2>
-  <div className="stage" data-reveal><div className="pcard" data-tilt data-cursor="view"><span>Project visual</span></div></div>
-  <p className="lead" data-reveal>SehatSaarthi is a full-stack healthcare application designed to provide accessible digital healthcare assistance through a modern web platform.</p>
-  <ul className="list" data-reveal><li>Architected a full-stack app with React.js, Vite and Tailwind CSS using reusable components.</li><li>Built role-based interfaces across the platform.</li><li>Engineered RESTful services with Node.js and Express.js.</li><li>Integrated Google Gemini API for AI-driven healthcare assistance and prediction workflows.</li></ul>
-  <div className="tags" data-reveal>{stack.map(s=><span key={s}>{s}</span>)}</div>
-  <div className="row" data-reveal><a data-mag className="btn primary" href="#architecture">View Case Study</a>
-   {CONFIG.projectGithub&&<a data-mag className="btn" href={CONFIG.projectGithub} target="_blank" rel="noreferrer">GitHub</a>}
-   {CONFIG.projectLive&&<a data-mag className="btn" href={CONFIG.projectLive} target="_blank" rel="noreferrer">Live Demo</a>}</div></section>);
+import { CONFIG } from '../config';
+
+function ProjectCard({ p }) {
+  return (
+    <article className="card pcard" data-tilt data-reveal data-cursor="view">
+      <div className="pc-head">
+        <p className="tag"><span className="dot" />{p.tag}</p>
+        <small className="pc-year">{p.year}</small>
+      </div>
+      <h3 className="pc-name">{p.name}</h3>
+      <p className="pc-kind">{p.kind}</p>
+      <p className="lead pc-sum">{p.summary}</p>
+      <ul className="list pc-list">
+        {p.highlights.map(h => <li key={h}>{h}</li>)}
+      </ul>
+      <div className="tags">{p.stack.map(s => <span key={s}>{s}</span>)}</div>
+      <div className="row pc-row">
+        <a data-mag className="btn primary" href={p.live} target="_blank" rel="noreferrer">Live Demo</a>
+        <a data-mag className="btn" href={p.github} target="_blank" rel="noreferrer">GitHub</a>
+      </div>
+    </article>
+  );
+}
+
+export default function Project() {
+  return (
+    <section id="work" className="sec">
+      <p className="tag" data-reveal><span className="dot" />Featured Work · 2026</p>
+      <h2 className="big" data-reveal>Selected Projects.</h2>
+      <p className="lead" data-reveal>Three products I designed, built and shipped end to end — each one live in production.</p>
+      <div className="pgrid">
+        {CONFIG.projects.map(p => <ProjectCard key={p.id} p={p} />)}
+      </div>
+    </section>
+  );
 }
