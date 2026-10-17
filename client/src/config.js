@@ -59,7 +59,7 @@ export const CONFIG={
     'Real-time queue and referral updates over Socket.io.',
     'Multilingual interface with i18next for rural reach.'
    ],
-   github:e.VITE_SEHATSAARTHI_GITHUB||'https://github.com/1ak8/SIH26',
+   github:e.VITE_SEHATSAARTHI_GITHUB||'https://github.com/codewithabhii1210/SehatSaarthi',
    live:e.VITE_SEHATSAARTHI_LIVE||'https://sehatsaarthi-app.vercel.app'
   }
  ]
