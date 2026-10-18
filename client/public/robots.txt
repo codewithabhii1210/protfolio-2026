@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 Disallow: /admin
-Sitemap: https://protfolio-2026-ikhg.vercel.app/sitemap.xml
+Sitemap: https://abhishekprotfolio.vercel.app/sitemap.xml

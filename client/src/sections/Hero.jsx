@@ -1,4 +1,4 @@
-import {useEffect,useRef,useState,lazy,Suspense} from 'react';import gsap from 'gsap';import Profile from '../components/Profile';
+import {useEffect,useRef,useState,lazy,Suspense} from 'react';import gsap from 'gsap';import Profile from '../components/Profile';import {CONFIG} from '../config';
 const Hero3D=lazy(()=>import('../components/Hero3D'));
 const ROLES=['Full-Stack Developer.','Problem Solver.','Creative Developer.'];
 export default function Hero({ready}){
@@ -13,6 +13,6 @@ export default function Hero({ready}){
   <h1><span className="h-line"><span>Computer Science Student</span></span><span className="h-line"><span>Building Digital Experiences.</span></span></h1>
   <p className="h-fade role" aria-live="polite"><span key={i}>{ROLES[i]}</span></p>
   <p className="h-fade lead">Hi, I'm Abhi. Computer Science undergraduate focused on building modern web applications, solving problems and continuously improving my development skills.</p>
-  <div className="h-fade row"><a data-mag className="btn primary" href="#work">View My Work</a><a data-mag className="btn" href="#contact">Let's Connect</a></div></div>
+  <div className="h-fade row"><a data-mag className="btn primary" href="#work">View My Work</a><a data-mag className="btn" href="#contact">Let's Connect</a><a data-mag className="btn" href={CONFIG.linkedin} target="_blank" rel="noreferrer">LinkedIn ↗</a></div></div>
   <div className="hero-visual">{ready&&<Suspense fallback={null}><Hero3D/></Suspense>}<Profile/></div></section>);
 }

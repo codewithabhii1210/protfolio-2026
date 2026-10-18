@@ -1,4 +1,4 @@
-import {useEffect,useRef,useState} from 'react';
+import {useEffect,useRef,useState} from 'react';import {CONFIG} from '../config';
 const L=[['About','#about'],['Stack','#stack'],['Work','#work'],['Journey','#journey'],['Education','#education'],['Contact','#contact']];
 // Nav with scroll-progress bar; hides when scrolling down, returns when scrolling up
 export default function Nav(){
@@ -14,5 +14,5 @@ export default function Nav(){
     <span/>
     <span/>
   </button>
-  <nav aria-label="Primary" className={menuOpen?'active':''}>{L.map(([t,h])=><a key={h} href={h} onClick={closeMenu}>{t}</a>)}</nav></header>);
+  <nav aria-label="Primary" className={menuOpen?'active':''}>{L.map(([t,h])=><a key={h} href={h} onClick={closeMenu}>{t}</a>)}<a className="nav-ext" href={CONFIG.linkedin} target="_blank" rel="noreferrer" onClick={closeMenu}>LinkedIn</a></nav></header>);
 }

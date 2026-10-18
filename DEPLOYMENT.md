@@ -1,6 +1,18 @@
 # Vercel deployment
 
-Production: https://protfolio-2026-ikhg.vercel.app (Git-connected to `codewithabhii1210/protfolio-2026`, branch `main`).
+Production: https://abhishekprotfolio.vercel.app (Git-connected to `codewithabhii1210/protfolio-2026`, branch `main`).
+
+`abhishekprotfolio.vercel.app` is an **alias** on the latest production deployment, not a
+project-generated domain (Vercel appended `-chi` to that one). After any new production
+deploy, re-point it:
+
+```bash
+vercel alias set <deployment-url> abhishekprotfolio.vercel.app
+```
+
+The canonical/OG/robots/sitemap URLs in `client/index.html`, `client/public/robots.txt`
+and `client/public/sitemap.xml` all point at `https://abhishekprotfolio.vercel.app/` —
+update them together if the domain ever changes.
 
 ## Project settings (must match)
 
@@ -39,9 +51,14 @@ Client side (build time, every name must start with `VITE_`):
 | Name | Purpose |
 | --- | --- |
 | `VITE_GITHUB_URL`, `VITE_LINKEDIN_URL`, `VITE_EMAIL`, `VITE_PHOTO` | Contact/social links and photo |
-| `VITE_SEHATSAARTHI_GITHUB`, `VITE_SEHATSAARTHI_LIVE` | Featured project buttons |
-| `VITE_APPLE_URL`, `VITE_BMW_URL`, `VITE_NETFLIX_URL`, `VITE_CLOTHING_URL` | "More Work" clone cards |
+| `VITE_NEURALX_GITHUB`, `VITE_NEURALX_LIVE` | NeuralX project buttons |
+| `VITE_SEVENHEAVEN_GITHUB`, `VITE_SEVENHEAVEN_LIVE` | SevenHeaven project buttons |
+| `VITE_SEHATSAARTHI_GITHUB`, `VITE_SEHATSAARTHI_LIVE` | SehatSaarthi project buttons |
 | `VITE_CERT_IMAGE` | Certificate image; the card stays non-interactive while empty |
+
+The three project cards are rendered from `CONFIG.projects` in `client/src/config.js`;
+each entry's `github`/`live` falls back to the verified production URL when the matching
+`VITE_*` variable is unset.
 
 An empty link value hides that button, so a missing variable never produces a dead `#` link.
 `VITE_*` values are baked in at build time — changing one requires a redeploy.

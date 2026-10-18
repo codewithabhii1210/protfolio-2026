@@ -8,5 +8,5 @@ export default function Contact(){
   <form onSubmit={submit} className="form"><input name="name" placeholder="Name" required/><input name="email" type="email" placeholder="Email" required/>
    <textarea name="message" placeholder="Message" rows="5" minLength="5" required/><button data-mag className="btn primary" disabled={s==='sending'}>{s==='sending'?'Sending…':'Send Message'}</button>
    <p role="status">{s==='ok'&&'Thanks, message sent.'}{s==='err'&&(msg||'Something went wrong. Try again.')}</p></form>
-  <div className="row"><a data-mag className="btn" href={CONFIG.github}>GitHub</a><a data-mag className="btn" href={CONFIG.linkedin}>LinkedIn</a><a data-mag className="btn" href={`mailto:${CONFIG.email}`}>Email</a></div></section>);
+  <div className="row"><a data-mag className="btn" href={CONFIG.github} target="_blank" rel="noreferrer">GitHub</a><a data-mag className="btn" href={CONFIG.linkedin} target="_blank" rel="noreferrer">LinkedIn</a><a data-mag className="btn" href={`mailto:${CONFIG.email}`}>Email</a></div></section>);
 }
