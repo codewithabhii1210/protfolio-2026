@@ -45,6 +45,11 @@ Server side (stored as secrets):
 | `JWT_SECRET` | Long random string used to sign admin tokens |
 | `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Credentials created by the seed script |
 | `CLOUDINARY_CLOUD_NAME` / `CLOUDINARY_API_KEY` / `CLOUDINARY_API_SECRET` | Optional; only needed for image upload in the admin area |
+| `GMAIL_USER` / `GMAIL_APP_PASSWORD` | Gmail SMTP login used to email contact-form submissions (`GMAIL_APP_PASSWORD` is a 16-char Google *app password*, never the account password) |
+| `NOTIFY_EMAIL_TO` | Inbox that receives submissions; defaults to `GMAIL_USER` |
+| `CALLMEBOT_APIKEY` | CallMeBot key that pushes each submission to WhatsApp |
+| `NOTIFY_WHATSAPP_TO` | WhatsApp number in international format, no `+` (default `917440497125`) |
+| `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASS` | Optional replacements for the Gmail SMTP defaults, e.g. Brevo |
 
 Client side (build time, every name must start with `VITE_`):
 
@@ -65,6 +70,30 @@ An empty link value hides that button, so a missing variable never produces a de
 
 Run the seed once per database: `npm run seed --prefix server`. Never prefix database
 secrets with `VITE_`; those are shipped to the browser.
+
+## Contact form notifications
+
+`POST /api/contact` answers in milliseconds. The MongoDB write and the WhatsApp +
+email notifications are handed to Vercel's `waitUntil()` (`server/services/background.js`)
+so a cold database connect can no longer make the form hang. A hidden honeypot field
+is filled only by bots: those submissions return `201` but are neither stored nor
+delivered.
+
+- WhatsApp goes through **CallMeBot** (`server/services/notify.js`): once, add
+  `+34 644 84 44 86` to your contacts and WhatsApp the message
+  `I allow callmebot to send me messages`. The bot replies with the API key → set it
+  as `CALLMEBOT_APIKEY`. Recover a lost key by sending `Recover APIKey` to the same bot.
+- Email goes through **Gmail SMTP**: Google Account → Security → 2-Step Verification →
+  **App passwords** → create one for "Mail" → set the 16-char value as
+  `GMAIL_APP_PASSWORD` (and `GMAIL_USER` as the Gmail address).
+- Both channels are optional and independent. A missing or wrong credential never
+  fails the visitor's request; it is reported in the function logs instead.
+- Check delivery: `vercel logs <deployment-url>` and look for `[contact] notify:` —
+  each channel reports `"ok": true` or the reason it was skipped.
+
+Direct contact links on the site (WhatsApp `wa.me` link, email, LinkedIn, GitHub) come
+from `CONFIG` in `client/src/config.js`; the phone number and WhatsApp URL are
+overridable with `VITE_PHONE` and `VITE_WHATSAPP_URL`.
 
 ## Local development
 

@@ -6,6 +6,8 @@ export const CONFIG={
  github:e.VITE_GITHUB_URL||'https://github.com/codewithabhii1210',
  linkedin:e.VITE_LINKEDIN_URL||'https://www.linkedin.com/in/abhisheksingh1210',
  email:e.VITE_EMAIL||'abhisingh12102007@gmail.com',
+ phone:e.VITE_PHONE||'+91 74404 97125',
+ whatsapp:e.VITE_WHATSAPP_URL||'https://wa.me/917440497125',
  photo:e.VITE_PHOTO||'/profile.jpg',
  certImage:e.VITE_CERT_IMAGE||'',
  problemsSolved:400,streakDays:100,

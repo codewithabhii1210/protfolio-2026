@@ -142,3 +142,17 @@ h1{font-size:clamp(2.2rem,7vw,5.5rem);line-height:1;letter-spacing:-.03em}
 @media(max-width:1100px){.grid.g4{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){.grid.g4{grid-template-columns:1fr}}
 
+/* contact section: direct channels beside the live form */
+.cwrap{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:2rem;align-items:start}
+.cinfo{display:flex;flex-direction:column;gap:.6rem}
+.crow{display:flex;gap:.9rem;align-items:center;border:1px solid var(--line);border-radius:14px;padding:.85rem 1rem;background:#101013;color:var(--fg);text-decoration:none;transition:border-color .3s}
+.crow:hover{border-color:var(--ac)}
+.crow .ci{flex:none;width:34px;height:34px;border-radius:10px;background:var(--line);color:var(--ac);display:grid;place-items:center;font-size:.72rem;font-weight:700}
+.crow b{display:block;font-weight:600;font-size:.98rem}
+.crow small{color:var(--mute);word-break:break-all}
+.cinfo .note{margin-top:.4rem}
+.cwrap .form{max-width:none}
+.form [role=status]{min-height:1.3em;font-size:.9rem}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+@media(max-width:880px){.cwrap{grid-template-columns:1fr}}
+

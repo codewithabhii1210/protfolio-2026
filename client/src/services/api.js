@@ -3,7 +3,7 @@ const req=async(path,opts={},auth)=>{
  const h={...(opts.body instanceof FormData?{}:{'Content-Type':'application/json'}),...(auth&&token?{Authorization:'Bearer '+token}:{})};
  const r=await fetch('/api'+path,{...opts,headers:h});const j=await r.json().catch(()=>({}));
  if(!r.ok)throw new Error(j.message||'Request failed');return j;};
-export const sendContact=d=>req('/contact',{method:'POST',body:JSON.stringify(d)});
+export const sendContact=d=>req('/contact',{method:'POST',body:JSON.stringify(d),signal:AbortSignal.timeout(15000)});
 export const login=async(email,password)=>{const j=await req('/auth/login',{method:'POST',body:JSON.stringify({email,password})});token=j.token;sessionStorage.setItem('t',token);return j;};
 export const logout=()=>{token=null;sessionStorage.removeItem('t');};
 export const hasToken=()=>!!token;
