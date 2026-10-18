@@ -133,3 +133,12 @@ h1{font-size:clamp(2.2rem,7vw,5.5rem);line-height:1;letter-spacing:-.03em}
 @media(max-width:1100px){.pgrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:768px){.pgrid{grid-template-columns:1fr}}
 
+/* source link inside a card (proves the claim next to it) */
+.card .src{display:inline-block;margin-top:.85rem;color:var(--ac);font-size:.85rem;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .3s}
+.card .src:hover{border-color:var(--ac)}
+
+/* four-up card row: avoids a lone card stranding in a 3-column grid */
+.grid.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:1100px){.grid.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.grid.g4{grid-template-columns:1fr}}
+

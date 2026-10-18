@@ -8,10 +8,13 @@ const STACK={Programming:['Java','C','JavaScript'],Frontend:['HTML','CSS','React
 export function Stack(){return(<section id="stack" className="sec"><h2 className="big" data-reveal>Technologies I Work With</h2>
  <div className="grid">{Object.entries(STACK).map(([c,items])=><div key={c} className="card" data-tilt data-reveal><h3>{c}</h3>
  <div className="chips">{items.map(t=><span key={t} className="chip"><i>{t[0]}</i>{t}</span>)}</div></div>)}</div></section>);}
+// Source post for the HackWave 3.0 result (verified live before adding).
+const HACKWAVE_POST='https://www.linkedin.com/posts/abhisheksingh1210_hackwave30-nexheal-neuralx-activity-7516016567810293760-WoJT';
 const ACH=[[CONFIG.problemsSolved+'+','Coding Problems','Consistently solving programming and competitive coding problems across coding platforms.'],
+['Top 10','HackWave 3.0','Team Neural X advanced from the Top 50 to the Top 10 Grand Finalists out of 1,521 teams at HackWave 3.0, Indore. As Team Lead I built and presented NexHeal to the judges.',HACKWAVE_POST],
 ['100-Day','LeetCode Streak','Maintained a 100-day coding streak on LeetCode.'],['Internshala','Student Partner','Selected as an Internshala Student Partner, promoting career and internship awareness among students.']];
 export function Achievements(){return(<section id="achievements" className="sec"><h2 className="big" data-reveal>Achievements</h2>
- <div className="grid">{ACH.map(([a,b,c])=><div key={b} className="card" data-tilt data-reveal><b className="num">{a}</b><h3>{b}</h3><p>{c}</p></div>)}</div></section>);}
+ <div className="grid g4">{ACH.map(([a,b,c,src])=><div key={b} className="card" data-tilt data-reveal><b className="num">{a}</b><h3>{b}</h3><p>{c}</p>{src&&<a className="src" href={src} target="_blank" rel="noreferrer">View post ↗</a>}</div>)}</div></section>);}
 const EDU=[['2025–2029','LNCT Group of Colleges, Bhopal','B.Tech — Computer Science Engineering','Second Year Undergraduate'],
 ['2025','K V Bhind, Bhind','Senior Secondary — Class XII','79.6%'],['2023','EMHSS, Bhind','Secondary — Class X','']];
 export function Education(){
@@ -27,10 +30,10 @@ export function Certification(){
   ?<button className="card certcard" data-tilt data-reveal data-cursor="view" onClick={()=>setOpen(true)}>{inner}</button>
   :<div className="card certcard" data-tilt data-reveal>{inner}</div>}
  {open&&<div className="modal" role="dialog" aria-modal="true" onClick={()=>setOpen(false)}><img src={CONFIG.certImage} alt="Certificate: Introduction to Data Science" loading="lazy"/></div>}</section>);}
-const BEYOND=[['Hackathons','Participated in various hackathons.'],['Collaboration','Worked with Reffto in college projects and activities.'],['Creative Design','Designed posters and videos for school and college events.']];
+const BEYOND=[['Hackathons','HackWave 3.0 (10–12 October, Chameli Devi Group of Institutions, Indore) — Team Neural X went from the Top 50 to the Top 10 Grand Finalists out of 1,521 teams. Also built a line-following robot at TechX 2025, IIT Bombay.',HACKWAVE_POST],['Collaboration','Worked with Reffto in college projects and activities.'],['Creative Design','Designed posters and videos for school and college events.']];
 const STR=['Creative thinking','Problem-solving','Teamwork','Leadership','Communication','Sports','Music','Writing'];
 const HOB=['Video editing','Graphic designing','Exploring new technologies','Reading about tech innovations'];
 export function Beyond(){return(<section id="beyond" className="sec"><h2 className="big" data-reveal>Beyond the Code.</h2>
- <div className="grid">{BEYOND.map(([t,d])=><div key={t} className="card" data-tilt data-reveal><h3>{t}</h3><p>{d}</p></div>)}</div>
+ <div className="grid">{BEYOND.map(([t,d,src])=><div key={t} className="card" data-tilt data-reveal><h3>{t}</h3><p>{d}</p>{src&&<a className="src" href={src} target="_blank" rel="noreferrer">View post ↗</a>}</div>)}</div>
  <div className="grid"><div className="card" data-reveal><h3>Strengths</h3><div className="chips">{STR.map(x=><span key={x} className="chip">{x}</span>)}</div></div>
  <div className="card" data-reveal><h3>Interests</h3><div className="chips">{HOB.map(x=><span key={x} className="chip">{x}</span>)}</div></div></div></section>);}

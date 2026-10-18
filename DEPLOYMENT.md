@@ -51,7 +51,7 @@ Client side (build time, every name must start with `VITE_`):
 | Name | Purpose |
 | --- | --- |
 | `VITE_GITHUB_URL`, `VITE_LINKEDIN_URL`, `VITE_EMAIL`, `VITE_PHOTO` | Contact/social links and photo |
-| `VITE_NEURALX_GITHUB`, `VITE_NEURALX_LIVE` | NeuralX project buttons |
+| `VITE_NEURALX_GITHUB`, `VITE_NEURALX_LIVE` | NexHeal project buttons (env names kept as-is) |
 | `VITE_SEVENHEAVEN_GITHUB`, `VITE_SEVENHEAVEN_LIVE` | SevenHeaven project buttons |
 | `VITE_SEHATSAARTHI_GITHUB`, `VITE_SEHATSAARTHI_LIVE` | SehatSaarthi project buttons |
 | `VITE_CERT_IMAGE` | Certificate image; the card stays non-interactive while empty |

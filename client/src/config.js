@@ -4,7 +4,7 @@ const e=import.meta.env;
 // env-overridable, but the fallbacks are the real, working production URLs.
 export const CONFIG={
  github:e.VITE_GITHUB_URL||'https://github.com/codewithabhii1210',
- linkedin:e.VITE_LINKEDIN_URL||'https://www.linkedin.com/in/abhishek-singh-20a9ab2b1',
+ linkedin:e.VITE_LINKEDIN_URL||'https://www.linkedin.com/in/abhisheksingh1210',
  email:e.VITE_EMAIL||'abhisingh12102007@gmail.com',
  photo:e.VITE_PHOTO||'/profile.jpg',
  certImage:e.VITE_CERT_IMAGE||'',
@@ -12,8 +12,8 @@ export const CONFIG={
  projects:[
   {
    id:'neuralx',
-   name:'NeuralX',
-   product:'NexHeal',
+   name:'NexHeal',
+   product:'NeuralX · HackWave 3.0',
    tag:'Featured Project',
    year:'2026',
    kind:'AI · Developer Tools',
